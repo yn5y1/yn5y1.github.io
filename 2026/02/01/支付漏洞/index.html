@@ -1,0 +1,794 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sxh.jpg">
+  <link rel="icon" href="/img/sxh.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="支付漏洞支付流程 漏洞原理 漏洞分类 漏洞危害 小结原理： 根源在于服务端逻辑校验缺失和过度信任客户端传参 危害 直接导致经济损失，且往往在财务对账时才被发现，具有隐蔽性 漏洞识别与验证业务理解清晰掌握目标支付流程的每一个环节（下单-&gt;风控-&gt;生成订单-&gt;选择支付方式-&gt;发起支付-&gt;第三方&#x2F;银行回调-&gt;应用确认成功-&gt;发货&#x2F;服务开通 数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支付漏洞">
+<meta property="og:url" content="http://example.com/2026/02/01/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="支付漏洞支付流程 漏洞原理 漏洞分类 漏洞危害 小结原理： 根源在于服务端逻辑校验缺失和过度信任客户端传参 危害 直接导致经济损失，且往往在财务对账时才被发现，具有隐蔽性 漏洞识别与验证业务理解清晰掌握目标支付流程的每一个环节（下单-&gt;风控-&gt;生成订单-&gt;选择支付方式-&gt;发起支付-&gt;第三方&#x2F;银行回调-&gt;应用确认成功-&gt;发货&#x2F;服务开通 数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/assets/exported_image-20260131225945-e5qvcq5.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201141938-tvimgcn.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201142658-r5jlyec.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201143001-y08w5ps.png">
+<meta property="og:image" content="http://example.com/image/assets/exported_image-20260131225945-e5qvcq5.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201151826-vgnxv08.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201151852-1ro6tts.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201160010-bd8z6tz.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201163637-1dcdnqb.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201163704-4eh62y2.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201164017-cawdkp1.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201165435-5pa3w2j.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201165508-dxcbcdu.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201171122-dkfem1h.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201171423-00fw585.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201172136-l00mm91.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201172000-j711r7r.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201180752-a13oke4.png">
+<meta property="og:image" content="http://example.com/image/assets/image-20260201180833-v2by8hb.png">
+<meta property="og:image" content="http://example.com/image/assets/exported_image-20260201152833-am94lur.png">
+<meta property="article:published_time" content="2026-02-01T11:34:20.872Z">
+<meta property="article:modified_time" content="2026-02-01T12:52:27.183Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/image/assets/exported_image-20260131225945-e5qvcq5.png">
+  
+  
+  
+  <title>支付漏洞 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>yn5y1的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="支付漏洞"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-01 19:34" pubdate>
+          2026年2月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">支付漏洞</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="支付漏洞"><a href="#支付漏洞" class="headerlink" title="支付漏洞"></a>支付漏洞</h1><h2 id="支付流程"><a href="#支付流程" class="headerlink" title="支付流程"></a>支付流程</h2><p><img src="/image/assets/exported_image-20260131225945-e5qvcq5.png" srcset="/img/loading.gif" lazyload alt="exported_image"></p>
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p><img src="/image/assets/image-20260201141938-tvimgcn.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h2 id="漏洞分类"><a href="#漏洞分类" class="headerlink" title="漏洞分类"></a>漏洞分类</h2><p><img src="/image/assets/image-20260201142658-r5jlyec.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><p><img src="/image/assets/image-20260201143001-y08w5ps.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>原理：</p>
+<p>根源在于服务端逻辑校验缺失和过度信任客户端传参</p>
+<p>危害</p>
+<p>直接导致经济损失，且往往在财务对账时才被发现，具有隐蔽性</p>
+<h2 id="漏洞识别与验证"><a href="#漏洞识别与验证" class="headerlink" title="漏洞识别与验证"></a>漏洞识别与验证</h2><h4 id="业务理解"><a href="#业务理解" class="headerlink" title="业务理解"></a>业务理解</h4><p>清晰掌握目标支付流程的每一个环节（下单-&gt;风控-&gt;生成订单-&gt;选择支付方式-&gt;发起支付-&gt;第三方&#x2F;银行回调-&gt;应用确认成功-&gt;发货&#x2F;服务开通</p>
+<h4 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h4><p>明确每个环节客户端与服务器交互的关键参数（特别是订单号、金额、状态码、数量、用户ID、时间戳、签名）</p>
+<h4 id="权限界定"><a href="#权限界定" class="headerlink" title="权限界定"></a>权限界定</h4><p>区分不同用户角色（普通用户、商户、管理员）在支付流程中的合法操作边界</p>
+<p>‍</p>
+<h2 id="漏洞攻击路径"><a href="#漏洞攻击路径" class="headerlink" title="漏洞攻击路径"></a>漏洞攻击路径</h2><p><img src="/image/assets/exported_image-20260131225945-e5qvcq5.png" srcset="/img/loading.gif" lazyload alt="exported_image"></p>
+<h2 id="常见漏洞场景"><a href="#常见漏洞场景" class="headerlink" title="常见漏洞场景"></a>常见漏洞场景</h2><table>
+<thead>
+<tr>
+<th>功能模块</th>
+<th>高风险场景描述</th>
+<th>检测方法与步骤</th>
+<th>潜在风险等级</th>
+<th>场景举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格计算模块</td>
+<td>客户端计算最终价格，服务端仅接收并信任计算结果</td>
+<td>1.拦截创建订单请求，修改total_amount等价格字段 2.提交价格低于商品标价或为负值的订单 3.检查订单是否以篡改后价格创建成功</td>
+<td>高危</td>
+<td>将100元商品价格改为0.01元后订单成功创建</td>
+</tr>
+<tr>
+<td>支付跳转模块</td>
+<td>支付网关调用前，支付金额再次由客户端传入</td>
+<td>1.拦截支付接口调用请求（如支付宝&#x2F;微信支付） 2.篡改待支付金额参数 3.完成支付流程，确认实际扣款金额</td>
+<td>高危</td>
+<td>订单金额100元，支付时篡改为1元，实际仅扣款1元</td>
+</tr>
+<tr>
+<td>支付回调模块</td>
+<td>支付平台回调处理未验证签名或未校验金额一致性</td>
+<td>1.构造伪造的支付成功回调请求 2.替换回调中的订单号或金额字段 3.查询商户系统对应订单状态是否被错误更新</td>
+<td>高危</td>
+<td>伪造回调通知未支付订单B成功，系统错误标记订单B为已支付</td>
+</tr>
+<tr>
+<td>商品参数模块</td>
+<td>商品ID、数量、属性等决定价格的参数由客户端传入</td>
+<td>1.修改product_id为高价商品ID 2.修改quantity为负数或极大值 3.修改package_type等决定价格的属性参数</td>
+<td>高危</td>
+<td>低价商品ID替换为高价商品ID后，以低价购买高价商品</td>
+</tr>
+<tr>
+<td>优惠券 <strong>&#x2F;积分模块</strong></td>
+<td>优惠券面值、使用条件、叠加规则由客户端控制</td>
+<td>1.修改优惠券面值参数 2.修改优惠券使用状态标志 3.绕过优惠券叠加规则限制<br />4.重放含优惠券的支付请求</td>
+<td>高危</td>
+<td>一张优惠券被多次使用，造成多次大额抵扣</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>功能模块</th>
+<th>高风险场景描述</th>
+<th>检测方法与步骤</th>
+<th>潜在风险等级</th>
+<th>场景举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>订单状态模块</td>
+<td>订单支付状态可由客户端直接修改</td>
+<td>1. 直接修改订单状态参数为“已支付” 2. 跳过支付步骤直接访问支付成功页面 3. 重放历史成功订单的状态更新请求</td>
+<td>高危</td>
+<td>将order_status从“待支付”直接改为“已支付”</td>
+</tr>
+<tr>
+<td>运费 <strong>&#x2F;税费模块</strong></td>
+<td>运费、税费计算依赖客户端传入参数或前端计算</td>
+<td>1. 修改运费金额为0或负数 2. 修改税费计算基数或税率 3. 绕过特定地区运费规则</td>
+<td>高危</td>
+<td>国际订单修改运费为0，规避高额国际运费</td>
+</tr>
+<tr>
+<td>用户身份模块</td>
+<td>支付用户身份与订单归属用户未严格绑定</td>
+<td>1. 替换支付请求中的用户ID 2. 使用A用户支付凭证为B用户订单支付 3. 跨账户使用优惠券或余额</td>
+<td>高危</td>
+<td>使用A用户余额为B用户的订单完成支付</td>
+</tr>
+<tr>
+<td>重复支付模块</td>
+<td>同一支付请求可被重复提交并生效</td>
+<td>1. 拦截成功支付请求并重放多次 2. 高并发提交同一订单的支付请求 3. 利用支付成功到状态更新的时间差</td>
+<td>高危</td>
+<td>重放支付成功请求，导致一笔资金产生多个有效订单</td>
+</tr>
+<tr>
+<td>时间竞争模块</td>
+<td>库存&#x2F;余额校验与实际扣除存在时间窗口</td>
+<td>1. 多线程并发发起支付请求 2. 在库存&#x2F;余额检查后、扣除前发起竞争请求 3. 利用系统处理延迟</td>
+<td>中危</td>
+<td>库存仅1件时，通过并发请求成功下单多件</td>
+</tr>
+</tbody></table>
+<h2 id="漏洞识别技巧"><a href="#漏洞识别技巧" class="headerlink" title="漏洞识别技巧"></a>漏洞识别技巧</h2><h4 id="思维发散"><a href="#思维发散" class="headerlink" title="思维发散"></a>思维发散</h4><p>尝试开发者未预料到的输入，如负数、极小数、极大值、已删除商品的ID、他人优惠券ID等。</p>
+<h4 id="流程跳跃"><a href="#流程跳跃" class="headerlink" title="流程跳跃"></a>流程跳跃</h4><p>不按正常UI流程操作，直接重放或修改某个中间环节的数据包。</p>
+<h4 id="多端测试"><a href="#多端测试" class="headerlink" title="多端测试"></a>多端测试</h4><p>同一个业务，在PC网页端、移动端H5、手机App中分别测试，校验逻辑可能不同。</p>
+<h4 id="参数遍历"><a href="#参数遍历" class="headerlink" title="参数遍历"></a>参数遍历</h4><p>对看似无序的订单号、优惠券码进行低强度遍历，可能发现测试数据或他人数据。</p>
+<h2 id="漏洞案例"><a href="#漏洞案例" class="headerlink" title="漏洞案例"></a>漏洞案例</h2><p><img src="/image/assets/image-20260201151826-vgnxv08.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="/image/assets/image-20260201151852-1ro6tts.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>案例三：</p>
+<p>1、某个应用可以通过提供的素材一键生成动画<br>2、请求包中有个time参数，来控制生成的时长及对应的消费金币<br>3、修改time为负数，可以反向提升个人账号余额<br>4、但是维持时间很短就会被重置<br>5、不间断的发第2个步骤的包，持续稳定富裕的账号余额<br>6、同时去购买其他高额服务&#x2F;产品，利用条件竞争进行白嫖</p>
+<p>核心：条件竞争</p>
+<p>案例四：</p>
+<p>1、某数字人根据语音播报的内容时长来消耗金币<br>2、不同的duration代表着不同的视频的长度<br>3、自己生成一个用时很短的视频，并同时获取对应的duration值，假设duration为19999<br>4、修改生成长视频请求包中的duration值为19999<br>5、实际消耗金币很少，生成一个几十秒的长视频</p>
+<p>核心：低成本套取高价服务</p>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>技术表象：</p>
+<p>抓包改包、参数篡改、流程跳转<br>工具使用熟练度<br>已知漏洞模式匹配</p>
+<p>业务理解：</p>
+<p>支付流程数据流转<br>业务状态机设计<br>权限边界划分<br>第三方集成机制</p>
+<p>思维模型：</p>
+<p>攻击者思维模拟<br>异常场景推演<br>信任边界突破<br>组合攻击构造</p>
+<p><strong>业务理解是基础</strong>：不懂业务就无法发现真正的逻辑漏洞<br><strong>技术手段是工具</strong>：工具自动化只能发现表层问题<br><strong>攻击者视角是关键</strong>：站在攻击者角度思考如何“赚钱”</p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>靶场实操</p>
+<h2 id="Niushop开源商城-漏洞复现"><a href="#Niushop开源商城-漏洞复现" class="headerlink" title="Niushop开源商城(漏洞复现)"></a>Niushop开源商城(漏洞复现)</h2><h3 id="1、文件上传漏洞"><a href="#1、文件上传漏洞" class="headerlink" title="1、文件上传漏洞"></a>1、文件上传漏洞</h3><p>注册一个账号后登录</p>
+<p>在个人中心修改个人头像</p>
+<p><img src="/image/assets/image-20260201160010-bd8z6tz.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>上传php文件后台没有抓到包，看来是前端验证，那我们尝试将一句话木马文件改为jpg文件然后后端改名称</p>
+<p>这里是浏览键上传，如果点击确认修改就会改回默认头像，因为确认修改的发包里设置图片的名字是默认图片的名字不是刚刚上传的图片的名字</p>
+<p>抓浏览的包改php，右键在新标签页打开图片就可以蚁剑连接了</p>
+<p><img src="/image/assets/image-20260201163637-1dcdnqb.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="/image/assets/image-20260201163704-4eh62y2.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="2、弱口令"><a href="#2、弱口令" class="headerlink" title="2、弱口令"></a>2、弱口令</h3><p>我们可以看到个人中心的url是</p>
+<p><a target="_blank" rel="noopener" href="http://45.136.14.67:7963/index.php?s=/member/person">http://45.136.14.67:7963/index.php?s=/member/person</a></p>
+<p>那么我们可以尝试改为admin找到后台登陆点】</p>
+<p><a target="_blank" rel="noopener" href="http://45.136.14.67:7963/index.php?s=/admin">http://45.136.14.67:7963/index.php?s=/admin</a></p>
+<p><img src="/image/assets/image-20260201164017-cawdkp1.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>我们先试试弱口令</p>
+<p><img src="/image/assets/image-20260201165435-5pa3w2j.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后就进后台了</p>
+<p><img src="/image/assets/image-20260201165508-dxcbcdu.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="3、0元购"><a href="#3、0元购" class="headerlink" title="3、0元购"></a>3、0元购</h3><p>随便点击一个商品在购买的时候将数量改成负数，因为抓包界面没有金额，然后我们商城余额是0，如果要到支付订单界面再买就会无法进行、</p>
+<p>这样之后顺着流程走就能0元购了</p>
+<p><img src="/image/assets/image-20260201171122-dkfem1h.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="/image/assets/image-20260201171423-00fw585.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="4、XSS漏洞"><a href="#4、XSS漏洞" class="headerlink" title="4、XSS漏洞"></a>4、XSS漏洞</h3><h4 id="存储型"><a href="#存储型" class="headerlink" title="存储型"></a>存储型</h4><p>1.后台–&gt;设置–&gt;基础设置–&gt;商城第三方统计代码</p>
+<p><img src="/image/assets/image-20260201172136-l00mm91.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>来到首页就会弹窗</p>
+<p><img src="/image/assets/image-20260201172000-j711r7r.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h4 id="反射型"><a href="#反射型" class="headerlink" title="反射型"></a>反射型</h4><p>1.后台–微信–消息管理素材管理–&gt;添加消息存储–&gt;标题</p>
+<p><img src="/image/assets/image-20260201180752-a13oke4.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="/image/assets/image-20260201180833-v2by8hb.png" srcset="/img/loading.gif" lazyload alt="image"><br>‍</p>
+<h2 id="防御与修复"><a href="#防御与修复" class="headerlink" title="防御与修复"></a>防御与修复</h2><p>支付安全的防御不应是零散的点状修复，而应构建一个从前到后、贯穿流程的体系化防护方案</p>
+<p><img src="/image/assets/exported_image-20260201152833-am94lur.png" srcset="/img/loading.gif" lazyload alt="exported_image"></p>
+<p><strong>服务端绝对校验</strong>：</p>
+<p>所有价格、数量、优惠规则、商品标识必须在服务端重新计算和验证，杜绝依赖客户端传入</p>
+<p><strong>实施数字签名：</strong></p>
+<p>对订单、支付请求、支付回调通知等关键消息，使用非对称加密算法（如RSA）进行签名和验签，确保数据在传输过程中不可篡改</p>
+<p><strong>业务限频与防重：</strong></p>
+<p>对提交订单、支付、领取优惠等接口实施防重放攻击措施（如使用Token、流水号），并设置合理的频率限制</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>支付漏洞</div>
+      <div>http://example.com/2026/02/01/支付漏洞/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/27/beecms/" title="beecms">
+                        <span class="hidden-mobile">beecms</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
