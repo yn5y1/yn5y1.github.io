@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title></title>
+    <link href="/2026/03/03/DNS%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/"/>
+    <url>/2026/03/03/DNS%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/</url>
+    
+    <content type="html"><![CDATA[<h1 id="DNS欺骗实验"><a href="#DNS欺骗实验" class="headerlink" title="DNS欺骗实验"></a>DNS欺骗实验</h1><p>首先，确定目标机的ip和网关，攻击机要先冒充目标机的网关，对目标机进行arp欺骗</p><p><img src="/assets/QQ_1772520883026-20260303145449-e9av5zg.png" alt="QQ_1772520883026"></p><p>打开kali，输入sudo su 进入root用户</p><p>输入vim &#x2F;etc&#x2F;ettercap&#x2F;etter.dns ，在配置文件下输入*.com A 192.168.196.128（这是把所有以.com结尾的域名都映射为对应攻击者的ip，在攻击机做中间人后，目标机先访问这里的dns）（A代表ipv4,AAA代表ipv6）</p><p><img src="/assets/image-20260303150654-5wd0dlh.png" alt="image"></p><p>使用工具ettercap：一个基于ARP地址欺骗方式的网络嗅探工具，主要适用于交换局域网络。</p><p>输入ettercap -G ，进入ettercap工具 ，点击对勾（接受）。</p><p>拓：MITM是中间人攻击（Man-in-the-middle attack）</p><p><img src="/assets/image-20260303151021-8l8qkfx.png" alt="image"></p><p>分别点击1（扫描同网段存活主机）和2（存活主机列表），得到Host List</p><p><img src="/assets/QQ_1772522194883-20260303151642-dw8zdbh.png" alt="QQ_1772522194883"></p><p>如图分别把目标机ip与网关IP加入Target中</p><p><img src="/assets/QQ_1772522356422-20260303151921-ppc7q9s.png" alt="QQ_1772522356422"></p><p>点击1下的2，即可进行arp欺骗了（感觉这个工具不能造成断网，始终能使目标机连网，但是攻击机已经做了一个中间人）</p><p>ettercap mitm方法：</p><p>ARP           ARP欺骗</p><p>NDP           ipv6协议欺骗技术</p><p>ICMP          发送ICMP数据包重定向到kali，然后由kali转发(只有受害者发出的数据包经过kali)</p><p>Port Stealing     ARP静态绑定欺骗</p><p>DHCP          发送DHCP数据包，让受害者认为kali是路由器，(只有受害者发出的数据包经过kali)</p><p><img src="/assets/QQ_1772523815752-20260303154341-x5a0hcc.png" alt="QQ_1772523815752"></p><p>1、可以看到目标机的网关mac地址已是攻击机的mac地址了</p><p><img src="/assets/QQ_1772524024680-20260303154710-z4wifnc.png" alt="QQ_1772524024680"></p><p>1、进行如下1–&gt;2–&gt;3–&gt;鼠标左键双击dns_spoof操作，可进行dns欺骗了</p><p><img src="/assets/QQ_1772524114313-20260303154840-eahrnzq.png" alt="QQ_1772524114313"></p><p><img src="/assets/QQ_1772524172861-20260303154937-m7iytf1.png" alt="QQ_1772524172861"></p><p><img src="/assets/a36c28ace49d33e439e9b04194ade2b6-20260303155200-bc4jmd4.png" alt="a36c28ace49d33e439e9b04194ade2b6"></p><p>1在目标机ping <a href="http://www.baidu.com/">www.baidu.com</a> ，发现ip为攻击机架设的ip。ettercap工具下方也有欺骗记录</p><p><img src="/assets/QQ_1772524468881-20260303155433-1hpvz9v.png" alt="QQ_1772524468881"></p><p><img src="/assets/image-20260303155451-93v60yk.png" alt="image"></p><h2 id="dns欺骗的危害"><a href="#dns欺骗的危害" class="headerlink" title="dns欺骗的危害"></a><strong>dns欺骗的危害</strong></h2><p>输入了正确的域名，访问了错误的服务器</p><p>虚假广告</p><p>信息窃取（编写一个能够或账号密码的网站）</p><h2 id="dns欺骗的防御"><a href="#dns欺骗的防御" class="headerlink" title="dns欺骗的防御"></a><strong>dns欺骗的防御</strong></h2><p>1、DNS服务器：</p><p>使用新版本的DNS软件</p><p>安全设置对抗DNS欺骗（安全设备）</p><p>使用安全技术对DNS数据进行保护</p><p>2、应用服务器：</p><p>服务证书</p><p>用户自主标识（身份认证–账号密码）</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ARP欺骗攻击</title>
     <link href="/2026/02/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E4%B9%8BARP%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%EF%BC%88ARP%E6%96%AD%E7%BD%91%E6%94%BB%E5%87%BB%EF%BC%89/"/>
     <url>/2026/02/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E4%B9%8BARP%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%EF%BC%88ARP%E6%96%AD%E7%BD%91%E6%94%BB%E5%87%BB%EF%BC%89/</url>

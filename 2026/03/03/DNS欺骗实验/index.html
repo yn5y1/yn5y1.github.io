@@ -19,41 +19,34 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="渗透测试实战之ARP欺骗攻击（ARP断网攻击）一、实训目的： 通过实训理解ARP欺骗的原理 掌握中间攻击的方法。 二、场景描述：在虚拟机环境下配置 “Win7”和“Kali Linux”虚拟系统，使得2个系统之间能够相互通信，网络拓扑如图所示。 三、实验环境： 软件：VMware Workstations14以上版本  虚拟机：Kali-Linux、Windows 7  打开虚拟机：启动kali-">
+    <meta name="description" content="DNS欺骗实验首先，确定目标机的ip和网关，攻击机要先冒充目标机的网关，对目标机进行arp欺骗  打开kali，输入sudo su 进入root用户 输入vim &#x2F;etc&#x2F;ettercap&#x2F;etter.dns ，在配置文件下输入*.com A 192.168.196.128（这是把所有以.com结尾的域名都映射为对应攻击者的ip，在攻击机做中间人后，目标机先访问这里的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARP欺骗攻击">
-<meta property="og:url" content="http://example.com/2026/02/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E4%B9%8BARP%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%EF%BC%88ARP%E6%96%AD%E7%BD%91%E6%94%BB%E5%87%BB%EF%BC%89/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2026/03/03/DNS%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="渗透测试实战之ARP欺骗攻击（ARP断网攻击）一、实训目的： 通过实训理解ARP欺骗的原理 掌握中间攻击的方法。 二、场景描述：在虚拟机环境下配置 “Win7”和“Kali Linux”虚拟系统，使得2个系统之间能够相互通信，网络拓扑如图所示。 三、实验环境： 软件：VMware Workstations14以上版本  虚拟机：Kali-Linux、Windows 7  打开虚拟机：启动kali-">
+<meta property="og:description" content="DNS欺骗实验首先，确定目标机的ip和网关，攻击机要先冒充目标机的网关，对目标机进行arp欺骗  打开kali，输入sudo su 进入root用户 输入vim &#x2F;etc&#x2F;ettercap&#x2F;etter.dns ，在配置文件下输入*.com A 192.168.196.128（这是把所有以.com结尾的域名都映射为对应攻击者的ip，在攻击机做中间人后，目标机先访问这里的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/image/assets/wps1-20260205222623-72eef3y.jpg">
-<meta property="og:image" content="http://example.com/image/assets/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-26%20192250-20260226193146-19ckvqp.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226192446-8c1xiu3.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226195005-c3fhtrv.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226214452-432ofl4.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226214631-cbxca20.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226214734-a2drlaf.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226234859-kgrs5le.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226235237-qcwmbem.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260226192446-8c1xiu3.png">
-<meta property="og:image" content="http://example.com/image/assets/QQ_1772122023582-20260227000709-nuwibhv.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260227150158-bi9lr8h.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260227150638-tgzt30b.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260227162716-92cfuxz.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260227171121-tm0fapm.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260227171620-qd7htc0.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260227172839-f4zxmup.png">
-<meta property="og:image" content="http://example.com/image/assets/image-20260227172929-c8ap3uj.png">
-<meta property="og:image" content="http://example.com/image/assets/QQ_1772184855938-20260227173422-cnhw1vz.png">
-<meta property="article:published_time" content="2026-02-27T13:49:56.239Z">
-<meta property="article:modified_time" content="2026-02-27T15:56:13.918Z">
+<meta property="og:image" content="http://example.com/assets/QQ_1772520883026-20260303145449-e9av5zg.png">
+<meta property="og:image" content="http://example.com/assets/image-20260303150654-5wd0dlh.png">
+<meta property="og:image" content="http://example.com/assets/image-20260303151021-8l8qkfx.png">
+<meta property="og:image" content="http://example.com/assets/QQ_1772522194883-20260303151642-dw8zdbh.png">
+<meta property="og:image" content="http://example.com/assets/QQ_1772522356422-20260303151921-ppc7q9s.png">
+<meta property="og:image" content="http://example.com/assets/QQ_1772523815752-20260303154341-x5a0hcc.png">
+<meta property="og:image" content="http://example.com/assets/QQ_1772524024680-20260303154710-z4wifnc.png">
+<meta property="og:image" content="http://example.com/assets/QQ_1772524114313-20260303154840-eahrnzq.png">
+<meta property="og:image" content="http://example.com/assets/QQ_1772524172861-20260303154937-m7iytf1.png">
+<meta property="og:image" content="http://example.com/assets/a36c28ace49d33e439e9b04194ade2b6-20260303155200-bc4jmd4.png">
+<meta property="og:image" content="http://example.com/assets/QQ_1772524468881-20260303155433-1hpvz9v.png">
+<meta property="og:image" content="http://example.com/assets/image-20260303155451-93v60yk.png">
+<meta property="article:published_time" content="2026-03-03T07:57:06.636Z">
+<meta property="article:modified_time" content="2026-03-03T07:56:05.000Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/image/assets/wps1-20260205222623-72eef3y.jpg">
+<meta name="twitter:image" content="http://example.com/assets/QQ_1772520883026-20260303145449-e9av5zg.png">
   
   
   
-  <title>ARP欺骗攻击 - Hexo</title>
+  <title>Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -219,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ARP欺骗攻击"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -230,8 +223,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-02-27 21:49" pubdate>
-          2026年2月27日 晚上
+        <time datetime="2026-03-03 15:57" pubdate>
+          2026年3月3日 下午
         </time>
       </span>
     
@@ -242,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          879 字
         
       </span>
     
@@ -253,7 +246,7 @@
         
         
         
-          19 分钟
+          8 分钟
         
       </span>
     
@@ -290,112 +283,51 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">ARP欺骗攻击</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="渗透测试实战之ARP欺骗攻击（ARP断网攻击）"><a href="#渗透测试实战之ARP欺骗攻击（ARP断网攻击）" class="headerlink" title="渗透测试实战之ARP欺骗攻击（ARP断网攻击）"></a>渗透测试实战之ARP欺骗攻击（ARP断网攻击）</h1><h2 id="一、实训目的："><a href="#一、实训目的：" class="headerlink" title="一、实训目的："></a><strong>一、实训目的：</strong></h2><p> 通过实训理解ARP欺骗的原理</p>
-<p>掌握中间攻击的方法。</p>
-<h2 id="二、场景描述："><a href="#二、场景描述：" class="headerlink" title="二、场景描述："></a><strong>二、场景描述：</strong></h2><p>在虚拟机环境下配置 “Win7”和“Kali Linux”虚拟系统，使得2个系统之间能够相互通信，网络拓扑如图所示。</p>
-<h2 id="三、实验环境："><a href="#三、实验环境：" class="headerlink" title="三、实验环境："></a><strong>三、实验环境：</strong></h2><ol>
-<li><p>软件：VMware Workstations14以上版本</p>
-</li>
-<li><p>虚拟机：Kali-Linux、Windows 7</p>
-</li>
-<li><p>打开虚拟机：启动kali-linux 启动windows7（未装补丁）</p>
-</li>
-<li><p>获取IP地址（ifconfig、ipconfig）</p>
-</li>
-</ol>
-<p>Kali-Linux ：192.168.111.130</p>
-<p>Windows 7： 192.168.111.129</p>
-<p>在虚拟机环境下配置 “Win7”和“Kali Linux”2个虚拟系统，使得虚拟系统之间能够相互通信。</p>
-<p><img src="/image/assets/wps1-20260205222623-72eef3y.jpg" srcset="/img/loading.gif" lazyload></p>
-<h2 id="四、实验步骤"><a href="#四、实验步骤" class="headerlink" title="四、实验步骤"></a><strong>四、实验步骤</strong></h2><p>具体攻击实现</p>
-<p>　　具体的中间人攻击，大体上可以分为以下几个步骤：</p>
-<ol>
-<li><p>对目标主机进行ARP欺骗，声称自己是网关。</p>
-</li>
-<li><p>转发目标的NAT数据到网关，维持目标的外出数据。</p>
-</li>
-<li><p>对网关进行ARP欺骗，声称自己是目标主机。</p>
-</li>
-<li><p>转发网关的NAT数据到目标主机，维持目标的接收数据。</p>
-</li>
-<li><p>监听劫持或者修改目标的进入和外出数据，从而实现攻击。</p>
-</li>
-</ol>
-<p>其中1，3都是ARP欺骗；2，4都是转发，下面会分别说到。</p>
-<h3 id="1、断网攻击实施步骤"><a href="#1、断网攻击实施步骤" class="headerlink" title="1、断网攻击实施步骤"></a><strong>1、断网攻击实施步骤</strong></h3><p><strong>步骤1：</strong> 在Win7中，在命令提示符中输入命令“ipconfig &#x2F;all”查看自身的MAC地址和网关IP地址，下面第一张图所示。然后输入命令“ arp –a”查看ARP缓存表中的网关MAC地址，下面第二张图所示。<img src="/image/assets/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-26%20192250-20260226193146-19ckvqp.png" srcset="/img/loading.gif" lazyload alt="屏幕截图 2026-02-26 192250"></p>
-<p><img src="/image/assets/image-20260226192446-8c1xiu3.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p><strong>步骤2：</strong> 在kali终端中，输入命令“ifconfig”，查看kali的IP地址与MAC地址，如图所示。</p>
-<p><img src="/image/assets/image-20260226195005-c3fhtrv.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>192.168.6.128</p>
-<p>00:0c:29:13:ff:c4</p>
-<p><strong>步骤3：</strong> 主机扫描</p>
-<p><strong>方法1：</strong> 执行ping扫描最简单的方法是使用工具fping，fping使用ICMP ECHO一次请求多个主机，对当前局域网还存在那些主机进行快速扫描，以确定要攻击的主机的ip地址。</p>
-<p>fping -a -g 192.168.6.0&#x2F;24 &gt; result</p>
-<p>#使用fping工具扫描了192.168.6.0&#x2F;24网段内的所有主机，并将扫描结果输出到result文件中。其中，-a参数表示只输出活动的主机，-g参数表示扫描整个网段。</p>
-<p><img src="/image/assets/image-20260226214452-432ofl4.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p><img src="/image/assets/image-20260226214631-cbxca20.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p><strong>方法2：</strong> 执行nmap -sP 192.168.6.0&#x2F;24，扫描网络中活跃的主机。（推荐使用）</p>
-<p><img src="/image/assets/image-20260226214734-a2drlaf.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>-sP 选项表示只利用ping扫描进行主机发现，不进行端口扫描</p>
-<p>-sS 进行TCP的半开放扫描，如果禁ping的时候可以使用这个参数</p>
-<p>注：用nmap进行主机扫描速度快，而且能穿透防火墙，是比较可靠的扫描工具。</p>
-<p><strong>步骤5：</strong> arpspoof 是一款进行arp欺骗的工具，攻击者通过毒化受害者arp缓存，将网关mac替换为攻击者mac，然后攻击者可截获受害者发送和收到的数据包，可获取受害者账户、密码等相关敏感信息。</p>
-<p><strong>步骤6：</strong> 断网攻击：arpspoof -i eth0 -t 192.168.6.129 192.168.6.2</p>
-<p><img src="/image/assets/image-20260226234859-kgrs5le.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p><img src="/image/assets/image-20260226235237-qcwmbem.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>2）arp  -a   查看靶机网关mac地址的变</p>
-<p>arp欺骗前：</p>
-<p><img src="/image/assets/image-20260226192446-8c1xiu3.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>欺骗后：</p>
-<p><img src="/image/assets/QQ_1772122023582-20260227000709-nuwibhv.png" srcset="/img/loading.gif" lazyload alt="QQ_1772122023582"></p>
-<p>3）此时再次到win7上测试网络，如无特殊情况，win7 已经无法连接到互联网了，状态如下：</p>
-<p><img src="/image/assets/image-20260227150158-bi9lr8h.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<h3 id="2、攻击利用1：内网截获图片"><a href="#2、攻击利用1：内网截获图片" class="headerlink" title="2、攻击利用1：内网截获图片"></a><strong>2、攻击利用1：内网截获图片</strong></h3><p>Arp欺骗：目标ip的流量经过我的网卡，从网关出去</p>
-<p>Arp断网：目标ip的流量经过我的网卡</p>
-<ol>
-<li>echo 1  &gt;&#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward</li>
-</ol>
-<p>设置ip流量转发，不会出现断网现象</p>
-<p><img src="/image/assets/image-20260227150638-tgzt30b.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>有时不能这样直接修改，还有另外一种方法</p>
-<p>修改&#x2F;etc&#x2F;sysctl.conf文件，使得net.ipv4.ip_forward = 1；等于0为不转发。然后更新使用命令 sysctl -p</p>
-<ol start="2">
-<li>在ARP欺骗前，ping baidu.com -t检查是否能够上网</li>
-</ol>
-<p>目标ip（win7）：192.168.34，正常上网（这里我的虚拟网络崩了，换了一个网段）</p>
-<p><img src="/image/assets/image-20260227162716-92cfuxz.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>此时，win7和网关通信的数据包都会流经kali，</p>
-<ol start="2">
-<li>kali 中利用driftnet工具，可以捕获win7机器正在浏览的图片</li>
-</ol>
-<p>Driftnet是一个监听网络流量并从它观察到的TCP流中提取图像的程序。</p>
-<p>在命令行输入：</p>
-<p>apt-get install driftnet</p>
-<p>driftnet -i eth0</p>
-<p><img src="/image/assets/image-20260227171121-tm0fapm.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>当我使用win7上网时，从图中可以看出，kali 正在不断地捕获win7和网卡之间的数据包</p>
-<p>‍</p>
-<p><img src="/image/assets/image-20260227171620-qd7htc0.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>Driftnet是一个监听网络流量并从它观察到的TCP流中提取图像的程序。</p>
-<p>只能抓取http协议网址下的图片：</p>
-<p>测试网站：</p>
-<p><a target="_blank" rel="noopener" href="http://a.aixjt.com/AdminPublic.html"><u></a>​<u><a href="">http://a.aixjt.com/AdminPublic.html</a></u>​<u><a target="_blank" rel="noopener" href="http://a.aixjt.com/AdminPublic.html">&lt;&#x2F;u&gt;</a></u></p>
-<p><a target="_blank" rel="noopener" href="http://www.win4000.com/">&lt;u&gt;</a>​<u><a href="">http://www.win4000.com/</a></u>​<u><a target="_blank" rel="noopener" href="http://www.win4000.com/">&lt;&#x2F;u&gt;</a></u></p>
-<p><a target="_blank" rel="noopener" href="http://yqbz.xnayw.cn/gn.html">&lt;u&gt;</a>​<u><a href="">http://yqbz.xnayw.cn/gn.html</a></u>​<u><a target="_blank" rel="noopener" href="http://yqbz.xnayw.cn/gn.html">&lt;&#x2F;u&gt;</a></u></p>
-<h3 id="3、获取HTTP账户密码"><a href="#3、获取HTTP账户密码" class="headerlink" title="3、获取HTTP账户密码"></a><strong>3、获取HTTP账户密码</strong></h3><p>1、开始欺骗</p>
-<p>arpspoof -i etn0 -t 192.168.196.131 192.168.196.2</p>
-<p><img src="/image/assets/image-20260227172839-f4zxmup.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>2、启动：ettercap -Tq -i eth0</p>
-<p>-T  文本模式输出，不使用图形用户界面       -q  静默模式</p>
-<p>-i  指定要监听的网络接口</p>
-<p><img src="/image/assets/image-20260227172929-c8ap3uj.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>3、访问登录网址，输入用户名及密码。这里我输入zzz&#x2F;123456</p>
-<p><img src="/image/assets/QQ_1772184855938-20260227173422-cnhw1vz.png" srcset="/img/loading.gif" lazyload alt="QQ_1772184855938"></p>
+                <h1 id="DNS欺骗实验"><a href="#DNS欺骗实验" class="headerlink" title="DNS欺骗实验"></a>DNS欺骗实验</h1><p>首先，确定目标机的ip和网关，攻击机要先冒充目标机的网关，对目标机进行arp欺骗</p>
+<p><img src="/assets/QQ_1772520883026-20260303145449-e9av5zg.png" srcset="/img/loading.gif" lazyload alt="QQ_1772520883026"></p>
+<p>打开kali，输入sudo su 进入root用户</p>
+<p>输入vim &#x2F;etc&#x2F;ettercap&#x2F;etter.dns ，在配置文件下输入*.com A 192.168.196.128（这是把所有以.com结尾的域名都映射为对应攻击者的ip，在攻击机做中间人后，目标机先访问这里的dns）（A代表ipv4,AAA代表ipv6）</p>
+<p><img src="/assets/image-20260303150654-5wd0dlh.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>使用工具ettercap：一个基于ARP地址欺骗方式的网络嗅探工具，主要适用于交换局域网络。</p>
+<p>输入ettercap -G ，进入ettercap工具 ，点击对勾（接受）。</p>
+<p>拓：MITM是中间人攻击（Man-in-the-middle attack）</p>
+<p><img src="/assets/image-20260303151021-8l8qkfx.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>分别点击1（扫描同网段存活主机）和2（存活主机列表），得到Host List</p>
+<p><img src="/assets/QQ_1772522194883-20260303151642-dw8zdbh.png" srcset="/img/loading.gif" lazyload alt="QQ_1772522194883"></p>
+<p>如图分别把目标机ip与网关IP加入Target中</p>
+<p><img src="/assets/QQ_1772522356422-20260303151921-ppc7q9s.png" srcset="/img/loading.gif" lazyload alt="QQ_1772522356422"></p>
+<p>点击1下的2，即可进行arp欺骗了（感觉这个工具不能造成断网，始终能使目标机连网，但是攻击机已经做了一个中间人）</p>
+<p>ettercap mitm方法：</p>
+<p>ARP           ARP欺骗</p>
+<p>NDP           ipv6协议欺骗技术</p>
+<p>ICMP          发送ICMP数据包重定向到kali，然后由kali转发(只有受害者发出的数据包经过kali)</p>
+<p>Port Stealing     ARP静态绑定欺骗</p>
+<p>DHCP          发送DHCP数据包，让受害者认为kali是路由器，(只有受害者发出的数据包经过kali)</p>
+<p><img src="/assets/QQ_1772523815752-20260303154341-x5a0hcc.png" srcset="/img/loading.gif" lazyload alt="QQ_1772523815752"></p>
+<p>1、可以看到目标机的网关mac地址已是攻击机的mac地址了</p>
+<p><img src="/assets/QQ_1772524024680-20260303154710-z4wifnc.png" srcset="/img/loading.gif" lazyload alt="QQ_1772524024680"></p>
+<p>1、进行如下1–&gt;2–&gt;3–&gt;鼠标左键双击dns_spoof操作，可进行dns欺骗了</p>
+<p><img src="/assets/QQ_1772524114313-20260303154840-eahrnzq.png" srcset="/img/loading.gif" lazyload alt="QQ_1772524114313"></p>
+<p><img src="/assets/QQ_1772524172861-20260303154937-m7iytf1.png" srcset="/img/loading.gif" lazyload alt="QQ_1772524172861"></p>
+<p><img src="/assets/a36c28ace49d33e439e9b04194ade2b6-20260303155200-bc4jmd4.png" srcset="/img/loading.gif" lazyload alt="a36c28ace49d33e439e9b04194ade2b6"></p>
+<p>1在目标机ping <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> ，发现ip为攻击机架设的ip。ettercap工具下方也有欺骗记录</p>
+<p><img src="/assets/QQ_1772524468881-20260303155433-1hpvz9v.png" srcset="/img/loading.gif" lazyload alt="QQ_1772524468881"></p>
+<p><img src="/assets/image-20260303155451-93v60yk.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h2 id="dns欺骗的危害"><a href="#dns欺骗的危害" class="headerlink" title="dns欺骗的危害"></a><strong>dns欺骗的危害</strong></h2><p>输入了正确的域名，访问了错误的服务器</p>
+<p>虚假广告</p>
+<p>信息窃取（编写一个能够或账号密码的网站）</p>
+<h2 id="dns欺骗的防御"><a href="#dns欺骗的防御" class="headerlink" title="dns欺骗的防御"></a><strong>dns欺骗的防御</strong></h2><p>1、DNS服务器：</p>
+<p>使用新版本的DNS软件</p>
+<p>安全设置对抗DNS欺骗（安全设备）</p>
+<p>使用安全技术对DNS数据进行保护</p>
+<p>2、应用服务器：</p>
+<p>服务证书</p>
+<p>用户自主标识（身份认证–账号密码）</p>
 
                 
               </div>
@@ -413,8 +345,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ARP欺骗攻击</div>
-      <div>http://example.com/2026/02/27/渗透测试实战之ARP欺骗攻击（ARP断网攻击）/</div>
+      <div></div>
+      <div>http://example.com/2026/03/03/DNS欺骗实验/</div>
     </div>
     <div class="license-meta">
       
@@ -426,7 +358,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年2月27日</div>
+          <div>2026年3月3日</div>
         </div>
       
       
@@ -458,18 +390,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/03/03/DNS%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/02/01/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/" title="支付漏洞">
-                        <span class="hidden-mobile">支付漏洞</span>
+                      <a href="/2026/02/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%E4%B9%8BARP%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%EF%BC%88ARP%E6%96%AD%E7%BD%91%E6%94%BB%E5%87%BB%EF%BC%89/" title="ARP欺骗攻击">
+                        <span class="hidden-mobile">ARP欺骗攻击</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
